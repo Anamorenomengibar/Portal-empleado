@@ -1,49 +1,219 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Próximamente! Nuevo Portal del Empleado</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, #0066cc, #00ccff);
-            color: white;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            padding: 30px;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1.2em;
-        }
-        .highlight {
-            font-weight: bold;
-            font-size: 1.3em;
-            margin: 25px 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Juego Gildas & Godello</title>
+
+<style>
+    body {
+        font-family: 'Trebuchet MS', sans-serif;
+        background: linear-gradient(135deg, #214E34, #6A994E);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    #gildas, #wines {
+        font-size: 36px;
+        margin: 15px;
+    }
+
+    .screen {
+        display: none;
+        animation: fade 0.5s ease-in-out;
+    }
+
+    .visible { display: block; }
+
+    @keyframes fade {
+        from { opacity: 0; transform: scale(0.96); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .card {
+        background: rgba(255,255,255,0.18);
+        padding: 25px;
+        margin: 20px auto;
+        border-radius: 20px;
+        width: 75%;
+        box-shadow: 0 0 20px rgba(0,0,0,0.35);
+    }
+
+    input {
+        padding: 12px;
+        width: 80%;
+        border-radius: 12px;
+        border: none;
+        margin-top: 10px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    button {
+        background: #F2E8CF;
+        color: #214E34;
+        border: none;
+        border-radius: 14px;
+        padding: 15px 30px;
+        margin-top: 15px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #DAD7CD;
+        transform: scale(1.07);
+    }
+
+    .emoji {
+        font-size: 70px;
+        animation: bounce 1.2s infinite;
+    }
+
+    @keyframes bounce {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+
+    /* Confeti */
+    .confetti {
+        position: fixed;
+        top: 0;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        opacity: 0.9;
+        animation: confetti-fall 2.5s linear forwards;
+        z-index: 9999;
+    }
+
+    @keyframes confetti-fall {
+        0%   { transform: translateY(0) rotate(0deg); }
+        100% { transform: translateY(100vh) rotate(720deg); }
+    }
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>🚀 ¡Próximamente! 🚀</h1>
-        <p>Estamos trabajando en un <strong>nuevo Portal del Empleado</strong>.</p>
-        <div class="highlight">
-            Más intuitivo · Más rápido · Más seguro
-        </div>
-        <p>¡Espéralo muy pronto!<br>Contacto: rrhh@empresa.com</p>
+
+<h1>🍢 Gildas & Godello 🥂</h1>
+
+<div id="gildas">Gildas: 🫒🌶️🫒</div>
+<div id="wines">Copas: 🥂</div>
+
+<div id="confetti-container"></div>
+
+<!-- INTRO -->
+<div id="intro" class="screen visible">
+    <div class="emoji">🍢🥂</div>
+    <div class="card">
+        <h2>¡Bienvenida al juego más bilbaíno! 😄</h2>
+        <p>Responde escribiendo lo que quieras:  
+        <strong>¡todo será correcto!</strong></p>
+        <p>Por cada respuesta ganas:  
+        🫒🌶️🫒 + 🥂</p>
+        <button onclick="goTo('q1')">Comenzar ▶️</button>
     </div>
+</div>
+
+<!-- PREGUNTA 1 -->
+<div id="q1" class="screen">
+    <div class="card">
+        <h2>1️⃣ ¿Cómo se llama el bar de “las Majicas”? 😄</h2>
+        <input id="a1" placeholder="Escribe tu respuesta...">
+        <button onclick="correct('q2')">Enviar ✔️</button>
+    </div>
+</div>
+
+<!-- PREGUNTA 2 -->
+<div id="q2" class="screen">
+    <div class="card">
+        <h2>2️⃣ ¿Cómo se llama el barco que une Las Arenas y Portugalete? ⛴️</h2>
+        <input id="a2" placeholder="Escribe tu respuesta...">
+        <button onclick="correct('q3')">Enviar ✔️</button>
+    </div>
+</div>
+
+<!-- PREGUNTA 3 -->
+<div id="q3" class="screen">
+    <div class="card">
+        <h2>3️⃣ ¿Qué música sonaba en el bar retro de Portu? 🎶</h2>
+        <input id="a3" placeholder="Escribe tu respuesta...">
+        <button onclick="correct('q4')">Enviar ✔️</button>
+    </div>
+</div>
+
+<!-- PREGUNTA 4 -->
+<div id="q4" class="screen">
+    <div class="card">
+        <h2>4️⃣ ¿Qué instrumento tocaban en carnavales? 🎭</h2>
+        <input id="a4" placeholder="Escribe tu respuesta...">
+        <button onclick="finish()">Enviar ✔️</button>
+    </div>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="screen">
+    <div class="emoji">🎉🥂🍢</div>
+    <div class="card">
+        <h2>¡Zorionak, campeona! 🎉</h2>
+        <p>Has ganado todas estas gildas:</p>
+        <p id="finalGildas" style="font-size:40px;"></p>
+        <p>Y todas estas copas de vino blanco:</p>
+        <p id="finalWines" style="font-size:40px;"></p>
+        <button onclick="location.reload()">Jugar otra vez 🔄</button>
+    </div>
+</div>
+
+<script>
+let gildas = 1;
+let wines = 1;
+
+function goTo(screen) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("visible"));
+    document.getElementById(screen).classList.add("visible");
+}
+
+function updateCounters() {
+    document.getElementById("gildas").innerHTML = "Gildas: " + "🫒🌶️🫒".repeat(gildas);
+    document.getElementById("wines").innerHTML = "Copas: " + "🥂".repeat(wines);
+}
+
+function correct(nextScreen) {
+    gildas++;
+    wines++;
+    updateCounters();
+    goTo(nextScreen);
+}
+
+/* CONFETI */
+function lanzarConfeti() {
+    const colores = ["#FF0A54","#FF477E","#FF7096","#FFA3B5","#FEE440","#00BBF9","#00F5D4","#9B5DE5"];
+    for (let i = 0; i < 80; i++) {
+        const conf = document.createElement("div");
+        conf.classList.add("confetti");
+        conf.style.left = Math.random() * 100 + "vw";
+        conf.style.backgroundColor = colores[Math.floor(Math.random()*colores.length)];
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 2500);
+    }
+}
+
+function finish() {
+    gildas++;
+    wines++;
+    updateCounters();
+
+    lanzarConfeti();
+
+    document.getElementById("finalGildas").innerHTML = "🫒🌶️🫒".repeat(gildas);
+    document.getElementById("finalWines").innerHTML = "🥂".repeat(wines);
+
+    goTo("final");
+}
+</script>
+
 </body>
 </html>
